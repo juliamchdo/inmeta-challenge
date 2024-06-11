@@ -5,35 +5,42 @@ import VInput from '../components/V-Input.vue'
 
 const email = ref('');
 const password = ref('');
+const name = ref('');
 const isPasswordValid = computed(() => password.value.trim() !== '');
 const isEmailValid = computed(() => email.value.trim() !== '');
+const isNameValid = computed(() => email.value.trim() !== '');
 const errorMessage = ref('Campo obrigatório');
 
 let errors = ref({
+  name: false,
   email: false,
   password: false
 })
 
-function submitLogin() {
+function createLogin() {
   if (validateForm()) {
-    api.post('/login', { email: email.value, password: password.value }).then((res) => {
+    api.post('/register', { name: name.value, email: email.value, password: password.value }).then((res) => {
       console.log('res', res)
     })
   }
 }
 
 function validateForm(): boolean {
-  errors.value = { email: false, password: false };
+  errors.value = { name: false, email: false, password: false };
   if (!isEmailValid.value) errors.value.email = true
   if (!isPasswordValid.value) errors.value.password = true;
-  return errors.value.email || errors.value.password ? false : true
+  if (!isNameValid.value) errors.value.password = true;
+  return errors.value.email || errors.value.password || errors.value.name ? false : true
 }
 </script>
 
 <template>
   <main class="card">
-    <h2>Cards Marketplace</h2>
+    <h2>Novo usuário</h2>
     <form class="form">
+      <VInput label="Nome" id="name" type="text" v-model="name" placeholder="Insira seu nome"></VInput>
+      <p v-if="errors.name" class="invalid">{{ errorMessage }}</p>
+
       <VInput label="Email" id="email" type="text" v-model="email" placeholder="exemplo@gmail.com"></VInput>
       <p v-if="errors.email" class="invalid">{{ errorMessage }}</p>
 
@@ -41,13 +48,9 @@ function validateForm(): boolean {
       <p v-if="errors.password" class="invalid">{{ errorMessage }}</p>
     </form>
     <router-link to="#" class="forgot-password">Esqueceu a senha?</router-link>
-    <button type="button" class="login_btn" @click="submitLogin">Login</button>
+    <button type="button" class="login_btn" @click="createLogin">Cadastrar</button>
     <div class="footer_card">
-      <p>Não possui cadastro?</p>
-      <router-link to="new-login">Cadastre-se agora!</router-link>
-    </div>
-    <div class="footer_card">
-      <router-link to="#">Acessar trocas</router-link>
+      <router-link to="/">Voltar</router-link>
     </div>
   </main>
 </template>
