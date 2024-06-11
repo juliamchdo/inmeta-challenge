@@ -12,7 +12,7 @@ const isPasswordValid = computed(() => password.value.trim() !== '');
 const isEmailValid = computed(() => email.value.trim() !== '');
 const isNameValid = computed(() => name.value.trim() !== '');
 const errorMessage = ref('Campo obrigatório');
-
+let loading = ref(false)
 let errors = ref({
   name: false,
   email: false,
@@ -21,8 +21,10 @@ let errors = ref({
 
 function createLogin() {
   if (validateForm()) {
+    loading.value = true
     api.post('/register', { name: name.value, email: email.value, password: password.value }).then((res) => {
       console.log('res', res)
+      loading.value = false
     })
   }
 }
@@ -50,7 +52,7 @@ function validateForm(): boolean {
         <p v-if="errors.password" class="invalid">{{ errorMessage }}</p>
       </form>
 
-      <VButton @click="createLogin" size="large" text="Cadastrar"></VButton>
+      <VButton @click="createLogin" :loading="loading" size="large" text="Cadastrar"></VButton>
       <div class="footer_card">
         <router-link to="/">Voltar</router-link>
       </div>

@@ -1,12 +1,16 @@
 <script setup lang="ts">
 defineProps<{
   text: string,
-  size: 'small' | 'regular' | 'large'
+  size: 'small' | 'regular' | 'large',
+  loading?: boolean
 }>()
 </script>
 
 <template>
-  <button v-if="size === 'large'" type="button" class="large-btn">{{ text }}</button>
+  <button v-if="size === 'large'" type="button" class="large-btn">
+    <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    {{ text }}
+    </button>
 </template>
 
 <style scoped lang="scss">

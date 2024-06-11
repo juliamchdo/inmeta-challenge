@@ -10,7 +10,7 @@ const password = ref('');
 const isPasswordValid = computed(() => password.value.trim() !== '');
 const isEmailValid = computed(() => email.value.trim() !== '');
 const errorMessage = ref('Campo obrigatório');
-
+let loading = ref(false)
 let errors = ref({
   email: false,
   password: false
@@ -18,8 +18,9 @@ let errors = ref({
 
 function submitLogin() {
   if (validateForm()) {
+    loading.value = true
     api.post('/login', { email: email.value, password: password.value }).then((res) => {
-      console.log('res', res)
+      loading.value = false
     })
   }
 }
@@ -44,7 +45,7 @@ function validateForm(): boolean {
       </form>
       <router-link to="#" class="forgot-password">Esqueceu a senha?</router-link>
 
-      <VButton @click="submitLogin" size="large" text="Login"></VButton>
+      <VButton @click="submitLogin" :loading="loading" size="large" text="Login"></VButton>
       <div class="footer_card">
         <p>Não possui cadastro?</p>
         <router-link to="new-login">Cadastre-se agora!</router-link>
