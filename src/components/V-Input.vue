@@ -23,3 +23,12 @@ function updateValue(event: Event) {
       :placeholder="placeholder" />
   </div>
 </template>
+
+<style setup lang="scss">
+ input {
+    padding: .8rem !important;
+    border-radius: .5rem !important;
+    border: 1px solid #DDDDDD;
+    box-shadow: 1px 5px 9px rgba(211, 211, 211, .7);
+  }
+</style>
