@@ -18,14 +18,14 @@ function hideSidebar() {
           <img src="../assets/icons/close.svg" alt="close">
         </router-link>
       </li>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="#">Adicionar cartas</router-link></li>
+      <li><router-link to="/home">Home</router-link></li>
+      <li><router-link to="/new-cards">Adicionar cartas</router-link></li>
       <li><router-link to="#">Solicitações de trocas</router-link></li>
     </ul>
     <ul>
       <li class="d-flex align-items-center nav-title">Cards Marketplace</li>
-      <li class="hideOnMobile"><router-link to="/">Home</router-link></li>
-      <li class="hideOnMobile"><router-link to="#">Adicionar cartas</router-link></li>
+      <li class="hideOnMobile"><router-link to="/home">Home</router-link></li>
+      <li class="hideOnMobile"><router-link to="/new-cards">Adicionar cartas</router-link></li>
       <li class="hideOnMobile"><router-link to="#">Solicitações de trocas</router-link></li>
       <li class="menu-button" @click=showSidebar()>
         <router-link to="#">
