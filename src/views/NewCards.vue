@@ -124,8 +124,8 @@ function addCard(id: string){
     }
 
     .btn{
-      background-color: #282a36;
-      border-color: #282a36;
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
       font-size: 1.2rem;
     }
   } 

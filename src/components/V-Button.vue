@@ -20,10 +20,10 @@ defineProps<{
     color: white;
     border-radius: 1.5rem;
     border: none;
-    background-color: #003A74;
+    background-color: var(--primary-color);
     padding: .8rem;
     margin: 1.5rem 0 1.5rem 0;
-    background: linear-gradient(-90deg, #003A74, #006AD5);
+    background: linear-gradient(-90deg, #006064, #00796B);
     box-shadow: 1px 5px 9px rgba(211, 211, 211, .9);
   }
 </style>

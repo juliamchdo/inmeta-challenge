@@ -74,7 +74,7 @@ function validateForm(): boolean {
     width: 100%;
 
     .invalid {
-      color: red;
+      color: var(--red);
     }
   }
 
@@ -89,7 +89,7 @@ function validateForm(): boolean {
   }
 
   .footer_card a {
-    color: #5881D0;
+    color: var(--light-blue);
   }
 }
 </style>

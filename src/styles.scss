@@ -19,13 +19,12 @@ html {
 }
 
 a {
-  color: #5881d0;
+  color: var(--light-blue);
 }
 
 .main{
   height: 100%;
   display: flex;
-  // align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   background-color: white;

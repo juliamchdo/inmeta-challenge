@@ -15,7 +15,7 @@ function hideSidebar() {
     <ul class="sidebar">
       <li @click=hideSidebar()>
         <router-link to="#">
-          <img src="../assets/icons/close.svg" alt="close">
+          <img class="sidebar-button" src="../assets/icons/close.svg" alt="close">
         </router-link>
       </li>
       <li><router-link to="/home">Home</router-link></li>
@@ -29,7 +29,7 @@ function hideSidebar() {
       <li class="hideOnMobile"><router-link to="#">Solicitações de trocas</router-link></li>
       <li class="menu-button" @click=showSidebar()>
         <router-link to="#">
-          <img src="../assets/icons/menu.svg" alt="close">
+          <img class="sidebar-button" src="../assets/icons/menu.svg" alt="close">
         </router-link>
       </li>
     </ul>
@@ -38,7 +38,7 @@ function hideSidebar() {
 
 <style scoped lang="scss">
 nav {
-  background-color: #282a36;
+  background-color: var(--primary-color);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   color: white;
 }
@@ -69,7 +69,7 @@ nav a {
 
 nav a:hover {
   transition: .5s;
-  background-color: #3c3f50;
+  background-color: var(--secondary-color);
 }
 
 nav li:first-child {
@@ -87,7 +87,7 @@ nav li:first-child {
   right: 0;
   height: 100vh;
   width: 250px;
-  background-color: white;
+  background-color: var(--primary-color);
   backdrop-filter: blur(12px);
   box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
   list-style: none;
@@ -95,6 +95,7 @@ nav li:first-child {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  z-index: 999;
 }
 
 .sidebar li {

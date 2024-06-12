@@ -15,6 +15,6 @@ const showNavBar = computed(() => route.path !== '/' && route.path !== '/new-log
 <style>
 #app{
   height: 100dvh;
-  background-color: #282a36 !important;;
+  background-color: var(--primary-color) !important;;
 }
 </style>
