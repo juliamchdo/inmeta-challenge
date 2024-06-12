@@ -4,6 +4,7 @@ import api from '../services';
 import VInput from '../components/V-Input.vue'
 import VButton from '../components/V-Button.vue'
 import VCard from '../components/V-Card.vue'
+import router from '../router';
 
 const email = ref('');
 const password = ref('');
@@ -22,8 +23,8 @@ let errors = ref({
 function createLogin() {
   if (validateForm()) {
     loading.value = true
-    api.post('/register', { name: name.value, email: email.value, password: password.value }).then((res) => {
-      console.log('res', res)
+    api.post('/register', { name: name.value, email: email.value, password: password.value }).then(() => {
+      router.push('trades')
       loading.value = false
     })
   }
@@ -39,49 +40,55 @@ function validateForm(): boolean {
 </script>
 
 <template>
-  <VCard title="Novo usuário">
-    <template #body>
-      <form class="form">
-        <VInput label="Nome" id="name" type="text" v-model="name" placeholder="Insira seu nome"></VInput>
-        <p v-if="errors.name" class="invalid">{{ errorMessage }}</p>
+  <div class="d-flex align-items justify-content-center">
+    <VCard title="Novo usuário" class="card-container">
+      <template #body>
+        <form class="form">
+          <VInput label="Nome" id="name" type="text" v-model="name" placeholder="Insira seu nome"></VInput>
+          <p v-if="errors.name" class="invalid">{{ errorMessage }}</p>
 
-        <VInput label="Email" id="email" type="text" v-model="email" placeholder="exemplo@gmail.com"></VInput>
-        <p v-if="errors.email" class="invalid">{{ errorMessage }}</p>
+          <VInput label="Email" id="email" type="text" v-model="email" placeholder="exemplo@gmail.com"></VInput>
+          <p v-if="errors.email" class="invalid">{{ errorMessage }}</p>
 
-        <VInput label="Senha" id="password" type="password" v-model="password"></VInput>
-        <p v-if="errors.password" class="invalid">{{ errorMessage }}</p>
-      </form>
+          <VInput label="Senha" id="password" type="password" v-model="password"></VInput>
+          <p v-if="errors.password" class="invalid">{{ errorMessage }}</p>
+        </form>
 
-      <VButton @click="createLogin" :loading="loading" size="large" text="Cadastrar"></VButton>
-      <div class="footer_card">
-        <router-link to="/">Voltar</router-link>
-      </div>
-    </template>
-  </VCard>
+        <VButton @click="createLogin" :loading="loading" size="large" text="Cadastrar"></VButton>
+        <div class="footer_card">
+          <router-link to="/">Voltar</router-link>
+        </div>
+      </template>
+    </VCard>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+.card-container {
+  margin-top: 5rem;
 
-  .invalid {
-    color: red;
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .invalid {
+      color: red;
+    }
   }
-}
 
-.footer_card {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
+  .footer_card {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
 
-.footer_card p {
-  margin-right: 1rem;
-}
+  .footer_card p {
+    margin-right: 1rem;
+  }
 
-.footer_card a {
-  color: #5881D0;
+  .footer_card a {
+    color: #5881D0;
+  }
 }
 </style>
