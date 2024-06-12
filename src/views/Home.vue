@@ -58,7 +58,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="d-flex align-items-center justify-content-center flew-wrap">
+  <main class="main">
     <div class="cards-container">
       <h1 class="title">Suas cartas</h1>
 
@@ -79,6 +79,7 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+
 .cards-container {
   width: 70%;
   display: flex;

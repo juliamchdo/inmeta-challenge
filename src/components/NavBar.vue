@@ -38,8 +38,9 @@ function hideSidebar() {
 
 <style scoped lang="scss">
 nav {
-  background-color: white;
+  background-color: #282a36;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  color: white;
 }
 
 nav ul {
@@ -49,6 +50,7 @@ nav ul {
   justify-content: flex-end;
   align-items: center;
   padding: 0;
+  margin: 0;
 }
 
 nav li {
@@ -62,11 +64,12 @@ nav a {
   text-decoration: none;
   display: flex;
   align-items: center;
-  color: black;
+  color: white;
 }
 
 nav a:hover {
-  background-color: #f0f0f0;
+  transition: .5s;
+  background-color: #3c3f50;
 }
 
 nav li:first-child {
