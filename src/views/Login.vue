@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
+import { isInputEmpty } from '../utils/InputValidation';
 import api from '../services';
 import VInput from '../components/V-Input.vue'
 import VButton from '../components/V-Button.vue'
@@ -8,8 +9,8 @@ import router from '../router';
 
 const email = ref('');
 const password = ref('');
-const isPasswordValid = computed(() => password.value.trim() !== '');
-const isEmailValid = computed(() => email.value.trim() !== '');
+const isPasswordValid = isInputEmpty(password);
+const isEmailValid = isInputEmpty(email);
 const errorMessage = ref('Campo obrigatório');
 let loading = ref(false)
 let errors = ref({
