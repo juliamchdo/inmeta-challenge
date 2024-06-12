@@ -10,7 +10,7 @@ defineProps<{title: string}>()
 </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .card {
   width: 30rem;
   height: auto;

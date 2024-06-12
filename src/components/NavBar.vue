@@ -48,6 +48,7 @@ nav ul {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding: 0;
 }
 
 nav li {
@@ -74,6 +75,7 @@ nav li:first-child {
 
 .nav-title {
   font-size: 2.2rem;
+  padding-left: 2rem
 }
 
 .sidebar {
@@ -82,7 +84,7 @@ nav li:first-child {
   right: 0;
   height: 100vh;
   width: 250px;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: white;
   backdrop-filter: blur(12px);
   box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
   list-style: none;

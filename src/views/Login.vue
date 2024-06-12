@@ -22,7 +22,9 @@ function submitLogin() {
   if (validateForm()) {
     loading.value = true
     api.post('/login', { email: email.value, password: password.value }).then((res) => {
-      router.push('trades')
+      localStorage.setItem('token', res.data.token)
+      console.log('RESLOGIN', res)
+      router.push('home')
       loading.value = false
     })
   }

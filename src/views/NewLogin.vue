@@ -25,7 +25,7 @@ function createLogin() {
   if (validateForm()) {
     loading.value = true
     api.post('/register', { name: name.value, email: email.value, password: password.value }).then(() => {
-      router.push('trades')
+      router.push('home')
       loading.value = false
     })
   }
