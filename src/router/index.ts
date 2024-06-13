@@ -4,6 +4,7 @@ import NewLogin from '../views/NewLogin.vue'
 import Home from '../views/Home.vue'
 import CardsList from '../views/CardsList.vue'
 import TradesList from '../views/TradesList.vue'
+import NewTrade from '../views/NewTrade.vue'
 import { AuthService } from '../services/auth'
 
 
@@ -28,6 +29,11 @@ const routes = [
   {
     path: '/cards',
     component: CardsList,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/new-trades',
+    component: NewTrade,
     meta: {requiresAuth: true}
   },
 ]

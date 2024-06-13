@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 import { AuthService } from '../services/auth';
+
+const route = useRoute();
+const isTradesList = route.path == '/trades'
 function showSidebar() {
   const sidebar = document.querySelector('.sidebar') as HTMLElement;
   sidebar.style.display = 'flex'
@@ -18,21 +21,22 @@ function logout(){
 <template>
   <nav>
     <ul class="sidebar">
-      <li @click=hideSidebar()>
+      <li v-if="!isTradesList" @click=hideSidebar()>
         <router-link to="#">
           <img class="sidebar-button" src="../assets/icons/close.svg" alt="close">
         </router-link>
       </li>
-      <li><router-link to="/home">Home</router-link></li>
-      <li><router-link to="/cards">Adicionar cartas</router-link></li>
-      <li><router-link to="#">Solicitações de trocas</router-link></li>
+      <li v-if="!isTradesList"><router-link to="/home">Home</router-link></li>
+      <li v-if="!isTradesList"><router-link to="/cards">Adicionar cartas</router-link></li>
+      <li v-if="!isTradesList"><router-link to="/new-trades">Solicitações de trocas</router-link></li>
+      <li v-if="isTradesList"><router-link to="/">ir para Login</router-link></li>
     </ul>
     <ul>
       <li class="d-flex align-items-center nav-title">Cards Marketplace</li>
-      <li class="hideOnMobile"><router-link to="/home">Home</router-link></li>
-      <li class="hideOnMobile"><router-link to="/cards">Adicionar cartas</router-link></li>
-      <li class="hideOnMobile"><router-link to="#">Solicitações de trocas</router-link></li>
-      <li class="hideOnMobile logout" title="Sair"  @click=logout()>
+      <li v-if="!isTradesList" class="hideOnMobile"><router-link to="/home">Home</router-link></li>
+      <li v-if="!isTradesList" class="hideOnMobile"><router-link to="/cards">Adicionar cartas</router-link></li>
+      <li v-if="!isTradesList" class="hideOnMobile"><router-link to="/new-trades">Solicitações de trocas</router-link></li>
+      <li v-if="!isTradesList" class="hideOnMobile logout" title="Sair"  @click=logout()>
         <img class="sidebar-button" src="../assets/icons/logout.svg" alt="logout">
       </li>
       <li class="menu-button" @click=showSidebar()>
@@ -40,6 +44,7 @@ function logout(){
           <img class="sidebar-button" src="../assets/icons/menu.svg" alt="close">
         </router-link>
       </li>
+      <li v-if="isTradesList" class="hideOnMobile"><router-link to="/">Ir para Login</router-link></li>
     </ul>
   </nav>
 </template>
