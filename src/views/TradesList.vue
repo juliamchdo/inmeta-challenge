@@ -38,47 +38,25 @@ function openModal(trade: Trades) {
 
 <template>
   <main class="main">
-
-    <VModal v-if="showModal" title="Cards Marketplace" id="tradesModal">
+    <VModal v-if="showModal" size="lg" title="Cards Marketplace" id="tradesModal">
       <template #modal-body>
-
-        <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <h5>Cartas oferecidas</h5>
-            <template v-for="(trade, i) in selectedTrade?.tradeCards" :key="i">
-              <div class="carousel-item active" v-if="trade.type == 'OFFERING'">
-                <img :src="trade.card.imageUrl" class="d-flex align-items-center justify-content-center" alt="...">
-              </div>
-              <div class="carousel-item" v-if="trade.type == 'OFFERING'">
-                <img :src="trade.card.imageUrl" class="d-flex align-items-center justify-content-center" alt="...">
-              </div>
-            </template>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div> -->
-
-        <!-- <div class="d-flex align-items-center justify-content-center gap-4">
-          <div class="img-card-group">
-            Imagens oferecidas
-            <div class="img-card" v-for="(trade, i) in selectedTrade?.tradeCards" :key="i">
-              <img v-if="trade.type === 'OFFERING'" :src="trade.card.imageUrl" alt="card image">
+        <div class="d-flex align-items-center justify-content-center gap-4">
+          <div class="img-card-container">
+           <h5 class="title">Cartas oferecidas</h5>
+            <div class="img-card-group">
+              <template class="img-card" v-for="(trade, i) in selectedTrade?.tradeCards" :key="i">
+                <img v-if="trade.type === 'OFFERING'" :src="trade.card.imageUrl" alt="card image">
+              </template>
             </div>
 
-            Imagens Recebidas
-            <div class="img-card" v-for="(trade, i) in selectedTrade?.tradeCards" :key="i">
-              <img v-if="trade.type === 'RECEIVING'" :src="trade.card.imageUrl" alt="card image">
+            <h5 class="title">Cartas Recebidas</h5>
+            <div class="img-card-group" >
+              <template class="img-card" v-for="(trade, i) in selectedTrade?.tradeCards" :key="i">
+                <img v-if="trade.type === 'RECEIVING'" :src="trade.card.imageUrl" alt="card image">
+              </template>
             </div>
           </div>
-        </div> -->
+        </div>
       </template>
     </VModal>
 
@@ -110,17 +88,26 @@ function openModal(trade: Trades) {
 </template>
 
 <style scoped lang="scss">
-// .carousel-item{
-// display: flex;
-// align-items: center;
-// justify-content: center;
-// }
-.img-card-group {
+.title{
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.img-card-container{
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  padding: 0 2rem;
 }
+
+.img-card-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 1rem;
+  }
 
 .cards-container {
   display: flex;

@@ -1,18 +1,21 @@
 <script setup lang="ts">
 
-defineProps<{
+const props = defineProps<{
   title?: string,
-  id: string
+  id: string,
+  size?: 'sm' | 'lg' | 'xl'
 }>()
+
+const modalSize = `modal-${props.size}`
 
 </script>
 
 <template>
-  <div class="modal fade" :id="id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade" :id="props.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" :class="modalSize">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{ props.title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -28,7 +31,8 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+
 .modal-title {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
 }
 </style>
