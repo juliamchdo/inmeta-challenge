@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import * as bootstrap from 'bootstrap';
 import { onMounted, ref } from 'vue';
 import api from '../services';
 import { Cards } from '../types/Cards.types';
@@ -7,7 +8,6 @@ import { formatDate } from '../utils/formatFields';
 import { RouterLink } from 'vue-router';
 
 let cards = ref<Cards[]>([]);
-
 onMounted(async () => {
   await api.get('me/cards').then((res) => {
     cards.value = res.data;
@@ -20,13 +20,18 @@ let showModal = ref(false);
 
 function openModal(card: Cards) {
   selectedCard.value = card;
-  showModal.value = true
+  showModal.value = true;
+  const modal = document.getElementById('exampleModal');
+  if(modal) {
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+  }
 }
 </script>
 
 <template>
   <main class="main">
-    <VModal v-if="showModal" :title="selectedCard?.name" id="exampleModal">
+    <VModal v-show="showModal" :title="selectedCard?.name" id="exampleModal">
       <template #modal-body>
         <div class="d-flex align-items-center justify-content-center gap-4">
           <div class="img-card">
@@ -51,8 +56,7 @@ function openModal(card: Cards) {
             <img :src="card.imageUrl" class="card-img-top" alt="card">
             <div class="card-body">
               <h5 class="card-title">{{ card.name }}</h5>
-              <button @click="openModal(card)" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                class="btn btn-primary">Ver detalhes</button>
+              <button @click="openModal(card)" class="btn btn-primary">Ver detalhes</button>
             </div>
           </div>
         </div>
