@@ -31,12 +31,7 @@ function addCard(id: string){
       id
     ]
   }
-  const token = localStorage.getItem('token')
-  api.post('me/cards', params, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  }).then((res) => {
+  api.post('me/cards', params).then((res) => {
     console.log(res)
   })
   }

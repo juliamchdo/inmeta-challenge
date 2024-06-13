@@ -8,17 +8,9 @@ import { formatDate } from '../utils/formatFields';
 let cards = ref<Cards[]>([]);
 
 onMounted(async () => {
-  const params = {
-    token: localStorage.getItem('token')
-  }
-  await api.get('me/cards', {
-    headers: {
-      'Authorization': `Bearer ${params.token}`
-    }
-  }).then((res) => {
+  await api.get('me/cards').then((res) => {
     cards.value = res.data;
   });
-
 })
 
 

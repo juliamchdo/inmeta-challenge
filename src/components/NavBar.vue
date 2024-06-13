@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import { AuthService } from '../services/auth';
 function showSidebar() {
   const sidebar = document.querySelector('.sidebar') as HTMLElement;
   sidebar.style.display = 'flex'
@@ -7,6 +8,10 @@ function showSidebar() {
 function hideSidebar() {
   const sidebar = document.querySelector('.sidebar') as HTMLElement;
   sidebar.style.display = 'none'
+}
+
+function logout(){
+  AuthService.logout()
 }
 </script>
 
@@ -27,6 +32,9 @@ function hideSidebar() {
       <li class="hideOnMobile"><router-link to="/home">Home</router-link></li>
       <li class="hideOnMobile"><router-link to="/new-cards">Adicionar cartas</router-link></li>
       <li class="hideOnMobile"><router-link to="#">Solicitações de trocas</router-link></li>
+      <li class="hideOnMobile logout" title="Sair"  @click=logout()>
+        <img class="sidebar-button" src="../assets/icons/logout.svg" alt="logout">
+      </li>
       <li class="menu-button" @click=showSidebar()>
         <router-link to="#">
           <img class="sidebar-button" src="../assets/icons/menu.svg" alt="close">
@@ -53,11 +61,15 @@ nav ul {
   margin: 0;
 }
 
-nav li {
+nav li:not(.logout) {
   height: 50px;
   font-size: 1.4rem;
 }
 
+.logout img {
+  height: 3rem;
+  margin-right: 1rem
+}
 nav a {
   height: 100%;
   padding: 0 30px;
