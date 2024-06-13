@@ -61,7 +61,9 @@ function openModal(trade: Trades) {
     </VModal>
 
     <div class="cards-container mt-5 px-5">
-      <h1 class="title">Todas solicitações de troca</h1>
+      <div class="d-flex align-items-start">
+        <h1>Todas solicitações de troca</h1>
+      </div>
       <template v-if="!isLoading">
         <div class="cards-group">
           <div v-for="(trade, i) in tradesList" :key="i" class="card">
@@ -110,13 +112,14 @@ function openModal(trade: Trades) {
   }
 
 .cards-container {
-  display: flex;
+  width: 60%;
+   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   .cards-group {
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

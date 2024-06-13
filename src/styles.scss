@@ -18,10 +18,21 @@ html {
   font-size: 62.5%;
 }
 
-a {
-  color: var(--light-blue);
-}
+// a {
+//   font-size: 1.1rem;
+//   color: var(--light-blue);
+// }
 
+p, a{
+  font-size: 1.4rem;
+}
+.alert{
+  width: 100%;
+  font-size: 1.4rem;
+}
+.alert a{
+  font-size: 1.2rem !important;
+}
 .main{
   height: 100%;
   display: flex;

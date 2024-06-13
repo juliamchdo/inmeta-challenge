@@ -12,7 +12,7 @@ defineProps<{title: string}>()
 
 <style scoped lang="scss">
 .card {
-  width: 30rem;
+  width: 35rem;
   height: auto;
   background-color: white;
   display: flex;

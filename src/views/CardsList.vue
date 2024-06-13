@@ -4,43 +4,63 @@ import api from '../services';
 import { Cards } from '../types/Cards.types';
 import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
+import { toast } from 'vue3-toastify';
 
 let cardsList = ref<Cards[]>([]);
 
-onMounted(async() => {
-    const params = {
-        rpp: 20,
-        page: 1
-    }
-    await api.get('cards', { params }).then((res)=> {
-        cardsList.value = res.data.list.filter((a: { name: string; }) => a.name != '')
+onMounted(async () => {
+  const params = {
+    rpp: 20,
+    page: 1
+  }
+  await api.get('cards', { params })
+    .then((res) => {
+      cardsList.value = res.data.list.filter((a: { name: string; }) => a.name != '')
+    }).catch((error) => {
+      const msg = error.response.data.message;
+      toast(msg, {
+        "type": 'error',
+        "transition": "slide",
+        "dangerouslyHTMLString": true
+      })
     })
 });
 
 let selectedCard = ref<Cards>()
 let showModal = ref(false);
 
-function openModal(card: Cards){
+function openModal(card: Cards) {
   selectedCard.value = card;
   showModal.value = true
 }
 
-function addCard(id: string){
+function addCard(id: string) {
   const params = {
     cardIds: [
       id
     ]
   }
-  api.post('me/cards', params).then((res) => {
-    console.log(res)
+  api.post('me/cards', params).then(() => {
+    toast("Nova carta adicionada com sucesso!", {
+      "type": "success",
+      "transition": "slide",
+      "dangerouslyHTMLString": true
+    })
+  }).catch((error) => {
+    const msg = error.response.data.message;
+    toast(msg, {
+      "type": 'error',
+      "transition": "slide",
+      "dangerouslyHTMLString": true
+    })
   })
-  }
+}
 </script>
 
 <template>
 
-    <main class="main">
-      <VModal v-if="showModal" :title="selectedCard?.name" id="exampleModal">
+  <main class="main">
+    <VModal v-if="showModal" :title="selectedCard?.name" id="exampleModal">
       <template #modal-body>
         <div class="d-flex align-items-center justify-content-center gap-4">
           <div class="img-card">
@@ -49,7 +69,8 @@ function addCard(id: string){
 
           <div class="content">
             <p><span class="content-title">Nome:</span> {{ selectedCard?.name }}</p>
-            <p><span class="content-title">Data de criação:</span> {{ selectedCard?.createdAt ? formatDate(selectedCard.createdAt) : 'Data não disponível'  }}</p>
+            <p><span class="content-title">Data de criação:</span> {{ selectedCard?.createdAt ?
+              formatDate(selectedCard.createdAt) : 'Data não disponível' }}</p>
             <p><span class="content-title">Descrição:</span> {{ selectedCard?.description }}</p>
           </div>
         </div>
@@ -58,16 +79,17 @@ function addCard(id: string){
         <button @click="addCard(selectedCard!.id)" class="btn btn-primary">Adicionar carta</button>
       </template>
     </VModal>
-    
+
     <div class="cards-container">
       <h1 class="title">Cartas para seleção</h1>
       <template v-if="cardsList.length > 0">
         <div class="cards-group">
           <div v-for="(card, i) in cardsList" :key="i" class="card">
-              <img :src="card?.imageUrl" class="card-img-top" alt="card">
+            <img :src="card?.imageUrl" class="card-img-top" alt="card">
             <div class="card-body">
               <h5 class="card-title">{{ card?.name }}</h5>
-              <button @click="openModal(card)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Ver detalhes</button>
+              <button @click="openModal(card)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-primary">Ver detalhes</button>
             </div>
           </div>
         </div>
@@ -77,7 +99,6 @@ function addCard(id: string){
 </template>
 
 <style scoped lang="scss">
-
 .cards-container {
   width: 70%;
   display: flex;
@@ -86,11 +107,12 @@ function addCard(id: string){
   gap: 2rem;
   margin-top: 4rem;
 
-  .cards-group{
+  .cards-group {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center; justify-content: space-between;
+    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 2rem;
   }
@@ -98,7 +120,7 @@ function addCard(id: string){
   .card {
     width: 28rem !important;
 
-    .card-body{
+    .card-body {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -118,23 +140,24 @@ function addCard(id: string){
       font-size: 1.2rem;
     }
 
-    .btn{
+    .btn {
       background-color: var(--primary-color);
       border-color: var(--primary-color);
       font-size: 1.2rem;
     }
-  } 
+  }
 }
 
-.card-img-modal{
+.card-img-modal {
   width: 20rem;
   height: 25rem;
 }
 
-.content{
-font-size: 1.4rem;
-  .content-title{
-  font-weight: bold;
-}
+.content {
+  font-size: 1.4rem;
+
+  .content-title {
+    font-weight: bold;
+  }
 }
 </style>

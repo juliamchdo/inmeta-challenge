@@ -26,10 +26,10 @@ function logout(){
           <img class="sidebar-button" src="../assets/icons/close.svg" alt="close">
         </router-link>
       </li>
-      <li v-if="!isTradesList"><router-link to="/home">Home</router-link></li>
-      <li v-if="!isTradesList"><router-link to="/cards">Adicionar cartas</router-link></li>
-      <li v-if="!isTradesList"><router-link to="/new-trades">Solicitações de trocas</router-link></li>
-      <li v-if="isTradesList"><router-link to="/">ir para Login</router-link></li>
+      <li class="nav-link" v-if="!isTradesList"><router-link to="/home">Home</router-link></li>
+      <li class="nav-link" v-if="!isTradesList"><router-link to="/cards">Adicionar cartas</router-link></li>
+      <li class="nav-link" v-if="!isTradesList"><router-link to="/new-trades">Solicitações de trocas</router-link></li>
+      <li class="nav-link" v-if="isTradesList"><router-link to="/">ir para Login</router-link></li>
     </ul>
     <ul>
       <li class="d-flex align-items-center nav-title">Cards Marketplace</li>
@@ -51,6 +51,7 @@ function logout(){
 
 <style scoped lang="scss">
 nav {
+  padding: 2rem 0;
   background-color: var(--primary-color);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   color: white;
@@ -64,11 +65,10 @@ nav ul {
   align-items: center;
   padding: 0;
   margin: 0;
-}
 
-nav li:not(.logout) {
-  height: 50px;
-  font-size: 1.4rem;
+  .nav-link{
+    font-size: 1.6rem;
+  }
 }
 
 .logout img {
@@ -86,7 +86,7 @@ nav a {
 
 nav a:hover {
   transition: .5s;
-  background-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 nav li:first-child {

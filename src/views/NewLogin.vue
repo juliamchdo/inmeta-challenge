@@ -6,6 +6,7 @@ import VInput from '../components/V-Input.vue'
 import VButton from '../components/V-Button.vue'
 import VCard from '../components/V-Card.vue'
 import router from '../router';
+import { toast } from 'vue3-toastify';
 
 const email = ref('');
 const password = ref('');
@@ -24,8 +25,18 @@ let errors = ref({
 function createLogin() {
   if (validateForm()) {
     loading.value = true
-    api.post('/register', { name: name.value, email: email.value, password: password.value }).then(() => {
+    api.post('/register', { name: name.value, email: email.value, password: password.value })
+    .then(() => {
       router.push('home')
+      loading.value = false
+    })
+    .catch((error) => {
+      const msg = error.response.data.message;
+      toast(msg, {
+        "type": 'error',
+        "transition": "slide",
+        "dangerouslyHTMLString": true
+      })
       loading.value = false
     })
   }
@@ -85,7 +96,7 @@ function validateForm(): boolean {
   }
 
   .footer_card p {
-    margin-right: 1rem;
+    margin-right: .5rem;
   }
 
   .footer_card a {

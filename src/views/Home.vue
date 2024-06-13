@@ -4,6 +4,7 @@ import api from '../services';
 import { Cards } from '../types/Cards.types';
 import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
+import { RouterLink } from 'vue-router';
 
 let cards = ref<Cards[]>([]);
 
@@ -17,7 +18,7 @@ onMounted(async () => {
 let selectedCard = ref<Cards>()
 let showModal = ref(false);
 
-function openModal(card: Cards){
+function openModal(card: Cards) {
   selectedCard.value = card;
   showModal.value = true
 }
@@ -34,24 +35,33 @@ function openModal(card: Cards){
 
           <div class="content">
             <p><span class="content-title">Nome:</span> {{ selectedCard?.name }}</p>
-            <p><span class="content-title">Data de criação:</span> {{ selectedCard?.createdAt ? formatDate(selectedCard.createdAt) : 'Data não disponível'  }}</p>
+            <p><span class="content-title">Data de criação:</span> {{ selectedCard?.createdAt ?
+              formatDate(selectedCard.createdAt) : 'Data não disponível' }}</p>
             <p><span class="content-title">Descrição:</span> {{ selectedCard?.description }}</p>
           </div>
         </div>
       </template>
     </VModal>
-    
+
     <div class="cards-container">
-      <h1 class="title">Suas cartas</h1>
       <template v-if="cards.length > 0">
+        <h1 class="title">Suas cartas</h1>
         <div class="cards-group">
           <div v-for="(card, i) in cards" :key="i" class="card">
             <img :src="card.imageUrl" class="card-img-top" alt="card">
             <div class="card-body">
               <h5 class="card-title">{{ card.name }}</h5>
-              <button @click="openModal(card)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">Ver detalhes</button>
+              <button @click="openModal(card)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-primary">Ver detalhes</button>
             </div>
           </div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="alert alert-dark" role="alert">
+          Você ainda não possui cartas. Clique 
+          <RouterLink to="/cards">aqui</RouterLink>
+          para adicionar
         </div>
       </template>
     </div>
@@ -67,7 +77,7 @@ function openModal(card: Cards){
   gap: 2rem;
   margin-top: 4rem;
 
-  .cards-group{
+  .cards-group {
     width: 100%;
     display: flex;
     align-items: center;
@@ -79,7 +89,7 @@ function openModal(card: Cards){
   .card {
     width: 28rem !important;
 
-    .card-body{
+    .card-body {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -99,23 +109,24 @@ function openModal(card: Cards){
       font-size: 1.2rem;
     }
 
-    .btn{
+    .btn {
       background-color: var(--primary-color);
       border-color: var(--primary-color);
       font-size: 1.2rem;
     }
-  } 
+  }
 }
 
-.card-img-modal{
+.card-img-modal {
   width: 20rem;
   height: 25rem;
 }
 
-.content{
-font-size: 1.4rem;
-  .content-title{
-  font-weight: bold;
-}
+.content {
+  font-size: 1.4rem;
+
+  .content-title {
+    font-weight: bold;
+  }
 }
 </style>
