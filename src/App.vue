@@ -4,7 +4,7 @@ import NavBar from './components/NavBar.vue';
 import { computed } from 'vue';
 
 const route = useRoute();
-const showNavBar = computed(() => route.path !== '/' && route.path !== '/new-login');
+const showNavBar = computed(() => route.path !== '/' && route.path !== '/new-login' && route.path !== '/trades');
 </script>
 
 <template>

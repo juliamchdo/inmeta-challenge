@@ -24,13 +24,13 @@ function logout(){
         </router-link>
       </li>
       <li><router-link to="/home">Home</router-link></li>
-      <li><router-link to="/new-cards">Adicionar cartas</router-link></li>
+      <li><router-link to="/cards">Adicionar cartas</router-link></li>
       <li><router-link to="#">Solicitações de trocas</router-link></li>
     </ul>
     <ul>
       <li class="d-flex align-items-center nav-title">Cards Marketplace</li>
       <li class="hideOnMobile"><router-link to="/home">Home</router-link></li>
-      <li class="hideOnMobile"><router-link to="/new-cards">Adicionar cartas</router-link></li>
+      <li class="hideOnMobile"><router-link to="/cards">Adicionar cartas</router-link></li>
       <li class="hideOnMobile"><router-link to="#">Solicitações de trocas</router-link></li>
       <li class="hideOnMobile logout" title="Sair"  @click=logout()>
         <img class="sidebar-button" src="../assets/icons/logout.svg" alt="logout">

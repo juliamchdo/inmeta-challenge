@@ -56,7 +56,7 @@ function validateForm(): boolean {
           <router-link to="new-login">Cadastre-se agora!</router-link>
         </div>
         <div class="footer_card">
-          <router-link to="#">Acessar trocas</router-link>
+          <router-link to="/trades">Acessar trocas</router-link>
         </div>
       </template>
     </VCard>

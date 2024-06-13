@@ -21,9 +21,6 @@ function openModal(card: Cards){
   selectedCard.value = card;
   showModal.value = true
 }
-
-
-
 </script>
 
 <template>
