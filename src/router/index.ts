@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/Login.vue'
-import NewLogin from '../views/NewLogin.vue'
+import Login from '../views/Login/Login.vue'
+import NewLogin from '../views/Login/NewLogin.vue'
 import Home from '../views/Home.vue'
-import CardsList from '../views/CardsList.vue'
-import TradesList from '../views/TradesList.vue'
-import NewTrade from '../views/NewTrade.vue'
+import CardsList from '../views/Cards/CardsList.vue'
+import TradesList from '../views/Trades/TradesList.vue'
+import NewTrade from '../views/Trades/NewTrade.vue'
 import { AuthService } from '../services/auth'
 
 

@@ -1,39 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { isInputEmpty } from '../utils/InputValidation';
-import api from '../services';
-import VInput from '../components/V-Input.vue'
-import VButton from '../components/V-Button.vue'
-import VCard from '../components/V-Card.vue'
-import router from '../router';
-import { toast } from 'vue3-toastify';
+import { isInputEmpty } from '../../utils/InputValidation';
+import VInput from '../../components/V-Input.vue'
+import VButton from '../../components/V-Button.vue'
+import VCard from '../../components/V-Card.vue'
+import router from '../../router';
+import { LoginApi } from '../../api/login-api';
 
 const email = ref('');
 const password = ref('');
 const isPasswordValid = isInputEmpty(password);
 const isEmailValid = isInputEmpty(email);
 const errorMessage = ref('Campo obrigatório');
+
 let loading = ref(false)
 let errors = ref({
   email: false,
   password: false
 })
 
-function submitLogin() {
+async function submitLogin() {
   if (validateForm()) {
     loading.value = true
-    api.post('/login', { email: email.value, password: password.value }).then((res) => {
-      localStorage.setItem('token', res.data.token)
+    const params = {
+      email: email.value,
+      password: password.value
+    }
+    await LoginApi.login(params).then(() => {
       router.push('home')
-      loading.value = false
-    }).catch((error) => {
-      const msg = error.response.data.message;
-      toast(msg, {
-        "type": 'error',
-        "transition": "slide",
-        "dangerouslyHTMLString": true
-      })
     })
+    loading.value = false
   }
 }
 

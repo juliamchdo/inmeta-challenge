@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { isInputEmpty } from '../utils/InputValidation';
-import api from '../services';
-import VInput from '../components/V-Input.vue'
-import VButton from '../components/V-Button.vue'
-import VCard from '../components/V-Card.vue'
-import router from '../router';
+import { isInputEmpty } from '../../utils/InputValidation';
+import api from '../../services';
+import VInput from '../../components/V-Input.vue'
+import VButton from '../../components/V-Button.vue'
+import VCard from '../../components/V-Card.vue'
+import router from '../../router';
 import { toast } from 'vue3-toastify';
+import { LoginApi } from '../../api/login-api';
 
 const email = ref('');
 const password = ref('');
@@ -25,20 +26,15 @@ let errors = ref({
 function createLogin() {
   if (validateForm()) {
     loading.value = true
-    api.post('/register', { name: name.value, email: email.value, password: password.value })
-    .then(() => {
-      router.push('home')
-      loading.value = false
-    })
-    .catch((error) => {
-      const msg = error.response.data.message;
-      toast(msg, {
-        "type": 'error',
-        "transition": "slide",
-        "dangerouslyHTMLString": true
-      })
-      loading.value = false
-    })
+
+    const params = {
+      email: email.value,
+      name: name.value,
+      password: password.value
+    }
+
+    LoginApi.registerUser(params).then(() => loading.value = false)
+   
   }
 }
 

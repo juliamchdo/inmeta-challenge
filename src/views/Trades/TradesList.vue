@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import api from '../services';
-import { Trades, TradeCards } from '../types/Trades.types';
-import VModal from '../components/V-Modal.vue'
-import { Modal } from '../services/modal';
-import VButton from '../components/V-Button.vue';
-import { AuthService } from '../services/auth';
+import api from '../../services';
+import { Trades, TradeCards } from '../../types/Trades.types';
+import VModal from '../../components/V-Modal.vue'
+import { Modal } from '../../services/modal';
+import VButton from '../../components/V-Button.vue';
+import { AuthService } from '../../services/auth';
 import { toast } from 'vue3-toastify';
 
 
