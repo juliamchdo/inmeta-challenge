@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import * as bootstrap from 'bootstrap';
 import { onMounted, ref } from 'vue';
 import api from '../services';
 import { Cards } from '../types/Cards.types';
 import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
 import { RouterLink } from 'vue-router';
+import { Modal } from '../services/modal';
 
 let cards = ref<Cards[]>([]);
 onMounted(async () => {
@@ -21,17 +21,13 @@ let showModal = ref(false);
 function openModal(card: Cards) {
   selectedCard.value = card;
   showModal.value = true;
-  const modal = document.getElementById('exampleModal');
-  if(modal) {
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.show();
-  }
+  Modal.openModal('homeModal');
 }
 </script>
 
 <template>
   <main class="main">
-    <VModal v-show="showModal" :title="selectedCard?.name" id="exampleModal">
+    <VModal v-show="showModal" :title="selectedCard?.name" id="homeModal">
       <template #modal-body>
         <div class="d-flex align-items-center justify-content-center gap-4">
           <div class="img-card">

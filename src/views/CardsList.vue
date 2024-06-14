@@ -5,6 +5,7 @@ import { Cards } from '../types/Cards.types';
 import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
 import { toast } from 'vue3-toastify';
+import { Modal } from '../services/modal';
 
 let cardsList = ref<Cards[]>([]);
 
@@ -32,6 +33,7 @@ let showModal = ref(false);
 function openModal(card: Cards) {
   selectedCard.value = card;
   showModal.value = true
+  Modal.openModal('cardsListModal')
 }
 
 function addCard(id: string) {
@@ -60,7 +62,7 @@ function addCard(id: string) {
 <template>
 
   <main class="main">
-    <VModal v-if="showModal" :title="selectedCard?.name" id="exampleModal">
+    <VModal v-if="showModal" :title="selectedCard?.name" id="cardsListModal">
       <template #modal-body>
         <div class="d-flex align-items-center justify-content-center gap-4">
           <div class="img-card">
@@ -88,8 +90,7 @@ function addCard(id: string) {
             <img :src="card?.imageUrl" class="card-img-top" alt="card">
             <div class="card-body">
               <h5 class="card-title">{{ card?.name }}</h5>
-              <button @click="openModal(card)" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                class="btn btn-primary">Ver detalhes</button>
+              <button @click="openModal(card)" class="btn btn-primary">Ver detalhes</button>
             </div>
           </div>
         </div>
