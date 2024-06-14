@@ -113,7 +113,6 @@ function addCard(id: string) {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 2rem;
@@ -154,6 +153,12 @@ function addCard(id: string) {
 
   .content-title {
     font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 828px){
+  .cards-group{
+    flex-direction: column;
   }
 }
 </style>

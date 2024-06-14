@@ -125,4 +125,6 @@ function openModal(card: Cards) {
     font-weight: bold;
   }
 }
+
+
 </style>

@@ -174,7 +174,6 @@ function sendNewTrade(){
   justify-content: center;
   flex-wrap: wrap;
   padding: 2rem;
-  height: 35rem;
   .select-cards{
     height: 10rem;
   }
@@ -194,6 +193,18 @@ function sendNewTrade(){
         width: 100%;
       }
     }
+  }
+}
+
+@media screen and (max-width: 723px) {
+  .trade-card{
+    height: 60rem;
+  }
+}
+
+@media screen and (min-width: 724px) {
+  .trade-card{
+    height: 35rem;
   }
 }
 </style>

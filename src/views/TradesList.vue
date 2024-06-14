@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import api from '../services';
 import { Trades, TradeCards } from '../types/Trades.types';
 import VModal from '../components/V-Modal.vue'
@@ -27,7 +27,6 @@ onMounted(async () => {
 
   });
   isLoading.value = false
-
 })
 
 let showModal = ref(false);
