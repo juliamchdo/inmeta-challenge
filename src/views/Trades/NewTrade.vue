@@ -10,6 +10,7 @@ import TradesList from './TradesList.vue';
 import { toast } from 'vue3-toastify';
 import { CardsApi } from '../../api/cards-api';
 import { LoginApi } from '../../api/login-api';
+import { TradesApi } from '../../api/trades-api';
 
 const userCards = ref<Cards[]>([]);
 const allCards = ref<Cards[]>([]);
@@ -68,20 +69,7 @@ function sendNewTrade(){
     })
   })
 
-  api.post('trades', {cards}).then((res) =>{
-      toast('Solcitação de troca enviada', {
-        "type": 'success',
-        "transition": "slide",
-        "dangerouslyHTMLString": true
-      })
-  }).catch((error) => {
-    const msg = error.response.data.message;
-    toast(msg, {
-      "type": 'error',
-      "transition": "slide",
-      "dangerouslyHTMLString": true
-    })
-  })
+  TradesApi.addNewTrade(cards)
 }
 
 </script>

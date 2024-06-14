@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import api from '../../services';
 import { Cards } from '../../types/Cards.types';
 import VModal from '../../components/V-Modal.vue'
 import { formatDate } from '../../utils/formatFields';
-import { toast } from 'vue3-toastify';
 import { Modal } from '../../services/modal';
 import VButton from '../../components/V-Button.vue';
 import { CardsApi } from '../../api/cards-api';
@@ -37,7 +35,6 @@ function addCard(id: string) {
 </script>
 
 <template>
-
   <main class="main">
     <VModal v-if="showModal" :title="selectedCard?.name" id="cardsListModal">
       <template #modal-body>
@@ -96,7 +93,7 @@ function addCard(id: string) {
 
   .card {
     width: 28rem !important;
-
+    
     .card-body {
       display: flex;
       align-items: center;

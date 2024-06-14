@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import api from '../../services';
 import { Trades, TradeCards } from '../../types/Trades.types';
 import VModal from '../../components/V-Modal.vue'
 import { Modal } from '../../services/modal';
 import VButton from '../../components/V-Button.vue';
 import { AuthService } from '../../services/auth';
-import { toast } from 'vue3-toastify';
+import { TradesApi } from '../../api/trades-api';
 
 
 let tradesList = ref<Trades[]>();
@@ -18,14 +17,7 @@ const props = defineProps<{
 }>()
 
 onMounted(async () => {
-  const params = {
-    rpp: 20,
-    page: 1
-  }
-  await api.get('/trades', { params }).then((res) => {
-    tradesList = res.data.list
-
-  });
+  await TradesApi.listAllTrades().then((res) => tradesList = res)
   isLoading.value = false
 })
 
@@ -47,20 +39,7 @@ function openModal(trade: Trades) {
 }
 
 function deleteTrade(tradeId: string){
-  api.delete(`/trades/${tradeId}`).then(() =>{
-      toast('Solcitação de troca deletada!', {
-        "type": 'success',
-        "transition": "slide",
-        "dangerouslyHTMLString": true
-      })
-  }).catch((error) => {
-    const msg = error.response.data.message;
-    toast(msg, {
-      "type": 'error',
-      "transition": "slide",
-      "dangerouslyHTMLString": true
-    })
-  })
+  TradesApi.deleteTrade(tradeId);
 }
 
 </script>
@@ -160,6 +139,7 @@ function deleteTrade(tradeId: string){
     .card {
       width: 30rem;
       height: 20rem;
+      overflow-y: scroll;
 
       .card-body {
         display: flex;

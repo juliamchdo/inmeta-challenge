@@ -34,7 +34,6 @@ function createLogin() {
     }
 
     LoginApi.registerUser(params).then(() => loading.value = false)
-   
   }
 }
 
