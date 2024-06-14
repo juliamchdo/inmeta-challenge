@@ -11,10 +11,16 @@ import { toast } from 'vue3-toastify';
 
 const userCards = ref<Cards[]>([]);
 const allCards = ref<Cards[]>([]);
+const userId = ref('')
 
 onMounted(async () => {
   await api.get('me/cards').then((res) => {
     userCards.value = res.data;
+  });
+
+  await api.get('me').then((res) => {
+    console.log(res)
+    userId.value = res.data.id;
   });
 
   const params = {
@@ -131,7 +137,7 @@ function sendNewTrade(){
       </div>
     </div>
 
-    <TradesList />
+    <TradesList :user-id="userId" />
   </main>
 </template>
 

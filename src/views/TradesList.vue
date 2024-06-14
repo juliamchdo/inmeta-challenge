@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import api from '../services';
 import { Trades, TradeCards } from '../types/Trades.types';
 import VModal from '../components/V-Modal.vue'
 import { Modal } from '../services/modal';
 import VButton from '../components/V-Button.vue';
+import { AuthService } from '../services/auth';
+import { toast } from 'vue3-toastify';
 
 
 let tradesList = ref<Trades[]>();
 let isLoading = ref(true);
+let isAuthenticated = AuthService.isAuthenticated();
+
+const props = defineProps<{
+  userId?: string
+}>()
+
 onMounted(async () => {
   const params = {
     rpp: 20,
@@ -19,8 +27,8 @@ onMounted(async () => {
 
   });
   isLoading.value = false
-})
 
+})
 
 let showModal = ref(false);
 
@@ -38,6 +46,24 @@ function openModal(trade: Trades) {
   showModal.value = true
   Modal.openModal('tradesModal')
 }
+
+function deleteTrade(tradeId: string){
+  api.delete(`/trades/${tradeId}`).then(() =>{
+      toast('Solcitação de troca deletada!', {
+        "type": 'success',
+        "transition": "slide",
+        "dangerouslyHTMLString": true
+      })
+  }).catch((error) => {
+    const msg = error.response.data.message;
+    toast(msg, {
+      "type": 'error',
+      "transition": "slide",
+      "dangerouslyHTMLString": true
+    })
+  })
+}
+
 </script>
 
 <template>
@@ -65,8 +91,9 @@ function openModal(trade: Trades) {
     </VModal>
 
     <div class="cards-container mt-2 px-5">
-      <div class="d-flex align-items-start">
+      <div class="d-flex flex-column align-items-start">
         <h1>Todas solicitações de troca</h1>
+        <p v-if="!isAuthenticated">Faça login para solicitar troca de cartas</p>
       </div>
       <template v-if="!isLoading">
         <div class="cards-group">
@@ -81,7 +108,8 @@ function openModal(trade: Trades) {
                 <span>Cartas recebidas:</span>
                 {{ getTradeCardName(trade.tradeCards.filter(c => c.type === 'RECEIVING')) }}
               </p>
-              <div class="text-end">
+              <div class="d-flex justify-content-end gap-2">
+                <VButton v-if="trade.userId === props.userId" @click="deleteTrade(trade.id)" size="small" type="secondary" text="Deletar solicitação" />
                 <VButton @click="openModal(trade)" size="default" text="Ver cartas" />
               </div>
             </div>
@@ -151,12 +179,6 @@ function openModal(trade: Trades) {
 
       span {
         font-weight: bold;
-      }
-
-      .btn {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-        font-size: 1.2rem
       }
     }
   }

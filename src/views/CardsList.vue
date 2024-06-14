@@ -141,12 +141,6 @@ function addCard(id: string) {
     .card-text {
       font-size: 1.2rem;
     }
-
-    .btn {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-      font-size: 1.2rem;
-    }
   }
 }
 

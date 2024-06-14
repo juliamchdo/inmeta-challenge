@@ -2,7 +2,8 @@
 
 defineProps<{
   text: string,
-  size: 'small' | 'regular' | 'large' | 'default',
+  size: 'small' | 'large' | 'default',
+  type?: 'secondary',
   loading?: boolean
 }>();
 
@@ -11,6 +12,7 @@ const emit = defineEmits(['click']);
 
 <template>
   <button :class="[
+    type === 'secondary' ? 'btn btn-light' : '',
     size === 'large' ? 'large-btn' : '',
     size === 'default' ? 'btn btn-primary btn-default' : ''
   ]" type="button" @click="$emit('click', $event)">
@@ -20,6 +22,7 @@ const emit = defineEmits(['click']);
 </template>
 
 <style scoped lang="scss">
+
 .large-btn {
   width: 100%;
   font-size: 14px;
@@ -38,6 +41,13 @@ const emit = defineEmits(['click']);
   border-color: var(--primary-color);
   font-size: 1.2rem;
 }
+
+.btn-light{
+  background-color: var(--light-orange);
+  border-color: var(--light-orange);
+  font-size: 1.2rem;
+}
+
 
 .btn-default:active {
   background-color: var(--secondary-color);
