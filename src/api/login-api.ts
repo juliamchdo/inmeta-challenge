@@ -30,4 +30,8 @@ export class LoginApi {
         });
       });
   }
+
+  static async getUserID(){
+   return await api.get('me').then((res) => res.data.id);
+  }
 }

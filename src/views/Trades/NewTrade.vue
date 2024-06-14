@@ -8,27 +8,20 @@ import { Modal } from '../../services/modal';
 import VButton from '../../components/V-Button.vue';
 import TradesList from './TradesList.vue';
 import { toast } from 'vue3-toastify';
+import { CardsApi } from '../../api/cards-api';
+import { LoginApi } from '../../api/login-api';
 
 const userCards = ref<Cards[]>([]);
 const allCards = ref<Cards[]>([]);
 const userId = ref('')
 
 onMounted(async () => {
-  await api.get('me/cards').then((res) => {
-    userCards.value = res.data;
-  });
+  await LoginApi.getUserID().then((res) => userId.value = res);
+  await CardsApi.listUserCards().then((res) => userCards.value = res);
 
-  await api.get('me').then((res) => {
-    userId.value = res.data.id;
-  });
-
-  const params = {
-    rpp: 90,
-    page: 1
-  }
   const userCardNames = userCards.value.map((card: { name: string; }) => card.name);
-  await api.get('cards', { params }).then((res) => {
-    allCards.value = res.data.list.filter((a: { name: string; }) => {
+  await CardsApi.listAllCards().then((res) => {
+    allCards.value = res.filter((a: { name: string; }) => {
       return a.name != "" && !userCardNames.includes(a.name)
     })
   })
@@ -59,7 +52,6 @@ function openModal(card: Cards) {
 }
 
 function sendNewTrade(){
-
   let cards:any = [];
 
   totalOfferingCards.value.forEach(card => {
@@ -113,7 +105,7 @@ function sendNewTrade(){
             <div class="checkbox-input">
               <VInput :label="userCard.name" :id="userCard.id" v-model="offeringCards" type="checkbox"
                 @click="addOfferingCards(userCard.id)" />
-              <img class="eye" @click="openModal(userCard)" title="Ver carta" src="../assets/icons/eye.png"
+              <img class="eye" @click="openModal(userCard)" title="Ver carta" src="../../assets/icons/eye.png"
                 alt="eye icon">
             </div>
           </template>
@@ -127,7 +119,7 @@ function sendNewTrade(){
             <div class="checkbox-input">
               <VInput :label="card.name" :id="card.id" v-model="receivingCards" type="checkbox"
                 @click="addReceivingCards(card.id)" />
-              <img class="eye" @click="openModal(card)" title="Ver carta" src="../assets/icons/eye.png" alt="eye icon">
+              <img class="eye" @click="openModal(card)" title="Ver carta" src="../../assets/icons/eye.png" alt="eye icon">
             </div>
           </template>
         </div>

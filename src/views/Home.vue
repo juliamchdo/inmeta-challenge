@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import api from '../services';
 import { Cards } from '../types/Cards.types';
 import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
 import { RouterLink } from 'vue-router';
 import { Modal } from '../services/modal';
 import VButton from '../components/V-Button.vue';
+import { CardsApi } from '../api/cards-api';
 
 let cards = ref<Cards[]>([]);
 onMounted(async () => {
-  await api.get('me/cards').then((res) => {
-    cards.value = res.data;
-  });
+  await CardsApi.listUserCards().then((res) => cards.value = res)
 })
-
 
 let selectedCard = ref<Cards>()
 let showModal = ref(false);

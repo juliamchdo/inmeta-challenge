@@ -7,25 +7,14 @@ import { formatDate } from '../../utils/formatFields';
 import { toast } from 'vue3-toastify';
 import { Modal } from '../../services/modal';
 import VButton from '../../components/V-Button.vue';
+import { CardsApi } from '../../api/cards-api';
 
 let cardsList = ref<Cards[]>([]);
 
 onMounted(async () => {
-  const params = {
-    rpp: 20,
-    page: 1
-  }
-  await api.get('cards', { params })
-    .then((res) => {
-      cardsList.value = res.data.list.filter((a: { name: string; }) => a.name != '')
-    }).catch((error) => {
-      const msg = error.response.data.message;
-      toast(msg, {
-        "type": 'error',
-        "transition": "slide",
-        "dangerouslyHTMLString": true
-      })
-    })
+  await CardsApi.listAllCards().then((res) => {
+    cardsList.value = res
+  })
 });
 
 let selectedCard = ref<Cards>()
@@ -43,20 +32,7 @@ function addCard(id: string) {
       id
     ]
   }
-  api.post('me/cards', params).then(() => {
-    toast("Nova carta adicionada com sucesso!", {
-      "type": "success",
-      "transition": "slide",
-      "dangerouslyHTMLString": true
-    })
-  }).catch((error) => {
-    const msg = error.response.data.message;
-    toast(msg, {
-      "type": 'error',
-      "transition": "slide",
-      "dangerouslyHTMLString": true
-    })
-  })
+  CardsApi.addUserCard(params)
 }
 </script>
 
