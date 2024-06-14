@@ -2,7 +2,7 @@
 
 ## Start the projetct 
 
-Run `npm install` to install the project dependencies
+Run `npm install` to install the project dependencies.
 After that, run `npm run dev` to run the project in your computer.
 
 ## Recommended Setup
