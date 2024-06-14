@@ -32,7 +32,10 @@ function logout(){
       <li class="nav-link" v-if="isTradesList"><router-link to="/">ir para Login</router-link></li>
     </ul>
     <ul>
-      <li class="d-flex align-items-center nav-title">Cards Marketplace</li>
+      <li class="d-flex align-items-center nav-title">
+        <img class="cards-icon"  src="../assets/icons/cards.svg" alt="close">
+        Cards Marketplace
+      </li>
       <li v-if="!isTradesList" class="hideOnMobile"><router-link to="/home">Home</router-link></li>
       <li v-if="!isTradesList" class="hideOnMobile"><router-link to="/cards">Adicionar cartas</router-link></li>
       <li v-if="!isTradesList" class="hideOnMobile"><router-link to="/new-trades">Solicitações de trocas</router-link></li>
@@ -50,6 +53,10 @@ function logout(){
 </template>
 
 <style scoped lang="scss">
+.cards-icon{
+  width: 4.0rem;
+  height: 4.0rem;
+}
 nav {
   padding: 2rem 0;
   background-color: var(--primary-color);
