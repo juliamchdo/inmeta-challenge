@@ -8,7 +8,7 @@ defineProps<{
   placeholder?: string
 }>()
 
-const emit = defineEmits(['update:modelValue', 'update:passwordValue']);
+const emit = defineEmits(['update:modelValue', 'update:passwordValue', 'click']);
 
 function updateValue(event: Event) {
   const target = event.target as HTMLInputElement;
@@ -23,10 +23,8 @@ function updateValue(event: Event) {
       :placeholder="placeholder" />
   </template>
 
-
-
   <div class="form-check" v-if="type === 'checkbox'">
-    <input class="form-check-input" type="checkbox" :value="modelValue" :id="id"  @input="updateValue">
+    <input class="form-check-input" type="checkbox" @click="$emit('click', $event)" :value="modelValue" :id="id"  @input="updateValue">
     <label class="form-check-label" :for="id">
       {{ label }}
     </label>
@@ -47,9 +45,10 @@ function updateValue(event: Event) {
 }
 
 .form-check{
+  width: 25rem;
   display: flex;
   align-items: center;
-  margin: 1rem 0;
+  margin: 1rem ;
 }
 .form-check-label{
   font-size: 1.2rem;

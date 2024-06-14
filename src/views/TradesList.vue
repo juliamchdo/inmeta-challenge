@@ -64,7 +64,7 @@ function openModal(trade: Trades) {
       </template>
     </VModal>
 
-    <div class="cards-container mt-5 px-5">
+    <div class="cards-container mt-2 px-5">
       <div class="d-flex align-items-start">
         <h1>Todas solicitações de troca</h1>
       </div>
