@@ -89,7 +89,7 @@ function deleteTrade(tradeId: string){
       </template>
     </VModal>
 
-    <div class="cards-container mt-2 px-5">
+    <div class="cards-container mt-2">
       <div class="d-flex flex-column align-items-start">
         <h1>Todas solicitações de troca</h1>
         <p v-if="!isAuthenticated">Faça login para solicitar troca de cartas</p>

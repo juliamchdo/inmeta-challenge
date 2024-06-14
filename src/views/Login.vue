@@ -6,6 +6,7 @@ import VInput from '../components/V-Input.vue'
 import VButton from '../components/V-Button.vue'
 import VCard from '../components/V-Card.vue'
 import router from '../router';
+import { toast } from 'vue3-toastify';
 
 const email = ref('');
 const password = ref('');
@@ -22,10 +23,16 @@ function submitLogin() {
   if (validateForm()) {
     loading.value = true
     api.post('/login', { email: email.value, password: password.value }).then((res) => {
-      console.log('RESLOGIN', res.data)
       localStorage.setItem('token', res.data.token)
       router.push('home')
       loading.value = false
+    }).catch((error) => {
+      const msg = error.response.data.message;
+      toast(msg, {
+        "type": 'error',
+        "transition": "slide",
+        "dangerouslyHTMLString": true
+      })
     })
   }
 }

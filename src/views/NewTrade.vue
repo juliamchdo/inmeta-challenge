@@ -19,7 +19,6 @@ onMounted(async () => {
   });
 
   await api.get('me').then((res) => {
-    console.log(res)
     userId.value = res.data.id;
   });
 
@@ -105,7 +104,8 @@ function sendNewTrade(){
       </template>
     </VModal>
 
-    <div class="trade-card">
+    <template v-if="userCards.length > 0">
+      <div class="trade-card">
       <div class="select-cards">
         <h5 class="title">Selecione suas cartas para trocar</h5>
         <div class="cards-list all-cards">
@@ -136,6 +136,14 @@ function sendNewTrade(){
         </div>
       </div>
     </div>
+    </template>
+    <template v-else>
+        <div class="w-50 mt-5 alert alert-dark" role="alert">
+          Você ainda não possui cartas para trocar. Clique 
+          <RouterLink to="/cards">aqui</RouterLink>
+          para adicionar
+        </div>
+      </template>
 
     <TradesList :user-id="userId" />
   </main>
