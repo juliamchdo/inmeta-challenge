@@ -6,6 +6,7 @@ import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
 import { RouterLink } from 'vue-router';
 import { Modal } from '../services/modal';
+import VButton from '../components/V-Button.vue';
 
 let cards = ref<Cards[]>([]);
 onMounted(async () => {
@@ -52,7 +53,7 @@ function openModal(card: Cards) {
             <img :src="card.imageUrl" class="card-img-top" alt="card">
             <div class="card-body">
               <h5 class="card-title">{{ card.name }}</h5>
-              <button @click="openModal(card)" class="btn btn-primary">Ver detalhes</button>
+              <VButton @click="openModal(card)" size="default" text="Ver detalhes" />
             </div>
           </div>
         </div>
@@ -84,6 +85,7 @@ function openModal(card: Cards) {
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
+    margin-bottom: 4rem;
   }
 
   .card {
@@ -102,16 +104,10 @@ function openModal(card: Cards) {
 
     .card-title {
       font-weight: bold;
-      font-size: 1.3rem;
-    }
-
-    .card-text {
       font-size: 1.2rem;
     }
 
-    .btn {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
+    .card-text {
       font-size: 1.2rem;
     }
   }

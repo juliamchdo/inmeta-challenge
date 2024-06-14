@@ -3,6 +3,9 @@ import { onMounted, ref } from 'vue';
 import api from '../services';
 import { Trades, TradeCards } from '../types/Trades.types';
 import VModal from '../components/V-Modal.vue'
+import { Modal } from '../services/modal';
+import VButton from '../components/V-Button.vue';
+
 
 let tradesList = ref<Trades[]>();
 let isLoading = ref(true);
@@ -33,6 +36,7 @@ let selectedTrade = ref<Trades>();
 function openModal(trade: Trades) {
   selectedTrade.value = trade
   showModal.value = true
+  Modal.openModal('tradesModal')
 }
 </script>
 
@@ -78,8 +82,7 @@ function openModal(trade: Trades) {
                 {{ getTradeCardName(trade.tradeCards.filter(c => c.type === 'RECEIVING')) }}
               </p>
               <div class="text-end">
-                <button @click="openModal(trade)" data-bs-toggle="modal" data-bs-target="#tradesModal"
-                  class="btn btn-primary">Ver cartas</button>
+                <VButton @click="openModal(trade)" size="default" text="Ver cartas" />
               </div>
             </div>
           </div>

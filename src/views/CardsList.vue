@@ -6,6 +6,7 @@ import VModal from '../components/V-Modal.vue'
 import { formatDate } from '../utils/formatFields';
 import { toast } from 'vue3-toastify';
 import { Modal } from '../services/modal';
+import VButton from '../components/V-Button.vue';
 
 let cardsList = ref<Cards[]>([]);
 
@@ -78,7 +79,7 @@ function addCard(id: string) {
         </div>
       </template>
       <template #footer>
-        <button @click="addCard(selectedCard!.id)" class="btn btn-primary">Adicionar carta</button>
+        <VButton @click="addCard(selectedCard!.id)" size="default" text="Adicionar carta" />
       </template>
     </VModal>
 
@@ -90,7 +91,7 @@ function addCard(id: string) {
             <img :src="card?.imageUrl" class="card-img-top" alt="card">
             <div class="card-body">
               <h5 class="card-title">{{ card?.name }}</h5>
-              <button @click="openModal(card)" class="btn btn-primary">Ver detalhes</button>
+              <VButton @click="openModal(card)" size="default" text="Ver detalhes" />
             </div>
           </div>
         </div>
